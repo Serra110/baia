@@ -1,0 +1,476 @@
+[gd_scene format=3 uid="uid://nbjnuc0pd7h3"]
+
+[ext_resource type="Script" uid="uid://dfhk5tn11d3o" path="res://character_body_2d.gd" id="1_f3sb7"]
+[ext_resource type="Script" uid="uid://c2hkbpnlitui3" path="res://room_exit.gd" id="3_exit"]
+[ext_resource type="Texture2D" uid="uid://ce8ttg6nhspyc" path="res://assets/Player/player_idle.png" id="4_idle"]
+[ext_resource type="Texture2D" uid="uid://dci32xfwrwkhw" path="res://assets/Player/player_walking.png" id="5_walk"]
+[ext_resource type="Texture2D" uid="uid://bfshfm37cbfgy" path="res://assets/Player/player_behind.png" id="6_up"]
+[ext_resource type="Texture2D" uid="uid://d2uhi27gnifwq" path="res://assets/Player/player_looking_left.png" id="7_left"]
+[ext_resource type="Texture2D" uid="uid://dvui42kmorlg8" path="res://assets/Player/player_looking_right.png" id="8_right"]
+[ext_resource type="Texture2D" uid="uid://cbhc6yqntmes6" path="res://assets/Level/floor.png" id="9_floor"]
+[ext_resource type="Texture2D" uid="uid://5oo7pgtctqji" path="res://assets/Level/board.png" id="10_board"]
+[ext_resource type="Texture2D" uid="uid://bob1bbilb5cew" path="res://assets/Level/pc.png" id="11_pc"]
+[ext_resource type="Texture2D" uid="uid://dk0crp5733s6w" path="res://assets/Level/vault.png" id="12_vault"]
+[ext_resource type="Script" uid="uid://cdpfda7hjubo8" path="res://code_puzzle.gd" id="13_puzzle"]
+[ext_resource type="Script" path="res://enemy.gd" id="14_enemy"]
+
+[sub_resource type="RectangleShape2D" id="Rect_north"]
+size = Vector2(320, 16)
+
+[sub_resource type="RectangleShape2D" id="Rect_west"]
+size = Vector2(16, 128)
+
+[sub_resource type="RectangleShape2D" id="Rect_south_h"]
+size = Vector2(192, 16)
+
+[sub_resource type="RectangleShape2D" id="Rect_west_v"]
+size = Vector2(16, 192)
+
+[sub_resource type="RectangleShape2D" id="Rect_east"]
+size = Vector2(16, 320)
+
+[sub_resource type="RectangleShape2D" id="Rect_exit"]
+size = Vector2(128, 40)
+
+[sub_resource type="RectangleShape2D" id="Rect_doorblocker"]
+size = Vector2(128, 16)
+
+[sub_resource type="RectangleShape2D" id="Rect_board"]
+size = Vector2(48, 50)
+
+[sub_resource type="RectangleShape2D" id="Rect_pc"]
+size = Vector2(48, 40.5)
+
+[sub_resource type="RectangleShape2D" id="Rect_vault"]
+size = Vector2(56, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle0"]
+atlas = ExtResource("4_idle")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle1"]
+atlas = ExtResource("4_idle")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle2"]
+atlas = ExtResource("4_idle")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idle3"]
+atlas = ExtResource("4_idle")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk0"]
+atlas = ExtResource("5_walk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk1"]
+atlas = ExtResource("5_walk")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk2"]
+atlas = ExtResource("5_walk")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk3"]
+atlas = ExtResource("5_walk")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_walk4"]
+atlas = ExtResource("5_walk")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_player"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idle3")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_left")
+}],
+"loop": 0,
+"name": &"left",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_right")
+}],
+"loop": 0,
+"name": &"right",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_up")
+}],
+"loop": 0,
+"name": &"up",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_walk4")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_player"]
+radius = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_enemy"]
+radius = 20.0
+
+[node name="World" type="Node2D" unique_id=1041278302]
+
+[node name="Floor" type="Polygon2D" parent="." unique_id=1684279544]
+color = Color(0.45, 0.5, 0.55, 1)
+polygon = PackedVector2Array(0, 0, 320, 0, 320, 320, 192, 320, 192, 128, 0, 128)
+
+[node name="FloorTexture" type="Sprite2D" parent="." unique_id=1186358472]
+texture_filter = 1
+position = Vector2(160, 160)
+texture = ExtResource("9_floor")
+
+[node name="WallVisuals" type="Node2D" parent="." unique_id=2006691106]
+
+[node name="North" type="Polygon2D" parent="WallVisuals" unique_id=900009502]
+color = Color(0.2, 0.2, 0.25, 1)
+polygon = PackedVector2Array(0, -16, 320, -16, 320, 0, 0, 0)
+
+[node name="West" type="Polygon2D" parent="WallVisuals" unique_id=815937993]
+color = Color(0.2, 0.2, 0.25, 1)
+polygon = PackedVector2Array(-16, 0, 0, 0, 0, 128, -16, 128)
+
+[node name="SouthH" type="Polygon2D" parent="WallVisuals" unique_id=1808783579]
+color = Color(0.2, 0.2, 0.25, 1)
+polygon = PackedVector2Array(0, 128, 192, 128, 192, 144, 0, 144)
+
+[node name="WestV" type="Polygon2D" parent="WallVisuals" unique_id=1044082633]
+color = Color(0.2, 0.2, 0.25, 1)
+polygon = PackedVector2Array(176, 128, 192, 128, 192, 320, 176, 320)
+
+[node name="East" type="Polygon2D" parent="WallVisuals" unique_id=1592314461]
+color = Color(0.2, 0.2, 0.25, 1)
+polygon = PackedVector2Array(320, 0, 336, 0, 336, 320, 320, 320)
+
+[node name="TrimNorth" type="Polygon2D" parent="WallVisuals" unique_id=96939274]
+color = Color(0.85, 0.87, 0.9, 1)
+polygon = PackedVector2Array(0, 0, 320, 0, 320, 5, 0, 5)
+
+[node name="TrimWest" type="Polygon2D" parent="WallVisuals" unique_id=2081697585]
+color = Color(0.85, 0.87, 0.9, 1)
+polygon = PackedVector2Array(0, 0, 5, 0, 5, 128, 0, 128)
+
+[node name="TrimSouthH" type="Polygon2D" parent="WallVisuals" unique_id=186479463]
+color = Color(0.85, 0.87, 0.9, 1)
+polygon = PackedVector2Array(0, 123, 192, 123, 192, 128, 0, 128)
+
+[node name="TrimWestV" type="Polygon2D" parent="WallVisuals" unique_id=1229724750]
+color = Color(0.85, 0.87, 0.9, 1)
+polygon = PackedVector2Array(187, 128, 192, 128, 192, 320, 187, 320)
+
+[node name="TrimEast" type="Polygon2D" parent="WallVisuals" unique_id=845716989]
+color = Color(0.85, 0.87, 0.9, 1)
+polygon = PackedVector2Array(315, 0, 320, 0, 320, 320, 315, 320)
+
+[node name="Decor" type="Node2D" parent="." unique_id=1371217040]
+
+[node name="SpawnMarker" type="Polygon2D" parent="Decor" unique_id=851645135]
+color = Color(1, 1, 1, 0.25)
+polygon = PackedVector2Array(32, 48, 48, 64, 32, 80, 16, 64)
+
+[node name="ExitMarker" type="Polygon2D" parent="Decor" unique_id=13352663]
+color = Color(0.95, 0.8, 0.2, 0.9)
+polygon = PackedVector2Array(192, 304, 320, 304, 320, 320, 192, 320)
+
+[node name="SpawnDoorFrame" type="Polygon2D" parent="Decor" unique_id=522053718]
+color = Color(0.35, 0.22, 0.12, 1)
+polygon = PackedVector2Array(-16, 24, 0, 24, 0, 104, -16, 104)
+
+[node name="SpawnDoor" type="Polygon2D" parent="Decor" unique_id=772325964]
+color = Color(0.5, 0.32, 0.18, 1)
+polygon = PackedVector2Array(-13, 28, -3, 28, -3, 100, -13, 100)
+
+[node name="SpawnDoorKnob" type="Polygon2D" parent="Decor" unique_id=1822767987]
+color = Color(0.95, 0.8, 0.2, 1)
+polygon = PackedVector2Array(-9, 61, -5, 61, -5, 67, -9, 67)
+
+[node name="ExitDoorDark" type="Polygon2D" parent="Decor" unique_id=1395332812]
+color = Color(0, 0, 0, 0.85)
+polygon = PackedVector2Array(200, 304, 312, 304, 312, 320, 200, 320)
+
+[node name="ExitDoorPostL" type="Polygon2D" parent="Decor" unique_id=1283187440]
+color = Color(0.35, 0.22, 0.12, 1)
+polygon = PackedVector2Array(192, 296, 200, 296, 200, 320, 192, 320)
+
+[node name="ExitDoorPostR" type="Polygon2D" parent="Decor" unique_id=1353049709]
+color = Color(0.35, 0.22, 0.12, 1)
+polygon = PackedVector2Array(312, 296, 320, 296, 320, 320, 312, 320)
+
+[node name="ExitDoorLintel" type="Polygon2D" parent="Decor" unique_id=777668735]
+color = Color(0.35, 0.22, 0.12, 1)
+polygon = PackedVector2Array(192, 296, 320, 296, 320, 304, 192, 304)
+
+[node name="ExitLabel" type="Label" parent="Decor" unique_id=1360854408]
+offset_left = 226.0
+offset_top = 272.0
+offset_right = 286.0
+offset_bottom = 300.0
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 24
+text = "EXIT"
+horizontal_alignment = 1
+
+[node name="Walls" type="StaticBody2D" parent="." unique_id=2126252556]
+
+[node name="North" type="CollisionShape2D" parent="Walls" unique_id=1858201736]
+position = Vector2(160, -8)
+shape = SubResource("Rect_north")
+
+[node name="West" type="CollisionShape2D" parent="Walls" unique_id=1467816595]
+position = Vector2(-8, 64)
+shape = SubResource("Rect_west")
+
+[node name="SouthH" type="CollisionShape2D" parent="Walls" unique_id=1623611668]
+position = Vector2(96, 136)
+shape = SubResource("Rect_south_h")
+
+[node name="WestV" type="CollisionShape2D" parent="Walls" unique_id=1051293203]
+position = Vector2(184, 224)
+shape = SubResource("Rect_west_v")
+
+[node name="East" type="CollisionShape2D" parent="Walls" unique_id=203550135]
+position = Vector2(328, 160)
+shape = SubResource("Rect_east")
+
+[node name="ExitArea" type="Area2D" parent="." unique_id=1340010188]
+script = ExtResource("3_exit")
+
+[node name="ExitShape" type="CollisionShape2D" parent="ExitArea" unique_id=2083451219]
+position = Vector2(256, 320)
+shape = SubResource("Rect_exit")
+
+[node name="ExitBlocker" type="StaticBody2D" parent="." unique_id=1220853444]
+
+[node name="DoorBlockerShape" type="CollisionShape2D" parent="ExitBlocker" unique_id=722555004]
+position = Vector2(256, 320)
+shape = SubResource("Rect_doorblocker")
+
+[node name="Props" type="Node2D" parent="." unique_id=910009858]
+
+[node name="Board" type="Sprite2D" parent="Props" unique_id=351795362]
+texture_filter = 1
+position = Vector2(86, 105)
+texture = ExtResource("10_board")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="PC" type="Sprite2D" parent="Props" unique_id=600890482]
+texture_filter = 1
+position = Vector2(291, 18)
+texture = ExtResource("11_pc")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="Vault" type="Sprite2D" parent="Props" unique_id=1587656616]
+texture_filter = 1
+position = Vector2(307, 204)
+rotation = 1.574673
+texture = ExtResource("12_vault")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
+
+[node name="PropBodies" type="StaticBody2D" parent="Props" unique_id=676996246]
+
+[node name="BoardBody" type="CollisionShape2D" parent="Props/PropBodies" unique_id=1711112882]
+position = Vector2(85, 98)
+shape = SubResource("Rect_board")
+
+[node name="PCBody" type="CollisionShape2D" parent="Props/PropBodies" unique_id=871708689]
+position = Vector2(292, 21.75)
+shape = SubResource("Rect_pc")
+
+[node name="VaultBody" type="CollisionShape2D" parent="Props/PropBodies" unique_id=828985662]
+position = Vector2(315, 203)
+shape = SubResource("Rect_vault")
+
+[node name="PCPrompt" type="Label" parent="Props" unique_id=1495113143]
+offset_left = 238.0
+offset_top = -33.0
+offset_right = 298.0
+offset_bottom = -9.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "E: PC"
+horizontal_alignment = 1
+
+[node name="BoardPrompt" type="Label" parent="Props" unique_id=1220914791]
+offset_left = 39.0
+offset_top = 136.0
+offset_right = 145.0
+offset_bottom = 160.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "E: Documents"
+horizontal_alignment = 1
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=727436503]
+
+[node name="DocumentClue" type="PanelContainer" parent="UI" unique_id=479620602]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -60.0
+offset_right = 220.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ClueLabel" type="Label" parent="UI/DocumentClue" unique_id=1392447408]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Documents: the backup code is 12345. Enter it on the PC (E)."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="CodePuzzle" type="Control" parent="UI" unique_id=567348614]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_puzzle")
+
+[node name="AmmoLabel" type="Label" parent="UI"]
+visible = false
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 176.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 22
+text = "Ammo: 6/6"
+
+[node name="HPLabel" type="Label" parent="UI"]
+visible = false
+offset_left = 16.0
+offset_top = 44.0
+offset_right = 176.0
+offset_bottom = 72.0
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 22
+text = "HP: 5"
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy1" type="CharacterBody2D" parent="Enemies"]
+position = Vector2(208, 64)
+script = ExtResource("14_enemy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/Enemy1"]
+texture_filter = 1
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy1"]
+shape = SubResource("CircleShape2D_enemy")
+
+[node name="Enemy2" type="CharacterBody2D" parent="Enemies"]
+position = Vector2(256, 200)
+script = ExtResource("14_enemy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/Enemy2"]
+texture_filter = 1
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy2"]
+shape = SubResource("CircleShape2D_enemy")
+
+[node name="Enemy3" type="CharacterBody2D" parent="Enemies"]
+position = Vector2(256, 288)
+script = ExtResource("14_enemy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/Enemy3"]
+texture_filter = 1
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy3"]
+shape = SubResource("CircleShape2D_enemy")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=703399331]
+position = Vector2(32, 64)
+script = ExtResource("1_f3sb7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=1449376634]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_player")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Gun" type="Node2D" parent="CharacterBody2D"]
+
+[node name="Barrel" type="Polygon2D" parent="CharacterBody2D/Gun"]
+color = Color(0.15, 0.15, 0.18, 1)
+polygon = PackedVector2Array(14, -3, 36, -3, 36, 3, 14, 3)
+
+[node name="Handle" type="Polygon2D" parent="CharacterBody2D/Gun"]
+color = Color(0.4, 0.25, 0.15, 1)
+polygon = PackedVector2Array(14, 0, 22, 0, 20, 14, 12, 14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=500000001]
+shape = SubResource("CircleShape2D_player")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=500000002]
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true

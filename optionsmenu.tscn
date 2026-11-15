@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bmbwoy6v3f3b6"]
+
+[ext_resource type="Texture2D" uid="uid://dtnt1y6fl81vx" path="res://assets/main_menu/backgroundoptions.png" id="1_a5em0"]
+[ext_resource type="Texture2D" uid="uid://bne4vxxsvx3bf" path="res://assets/main_menu/optionsmenutitle.png" id="2_21q2e"]
+[ext_resource type="Texture2D" uid="uid://ofd5221utmp8" path="res://assets/main_menu/scream.png" id="3_epn0t"]
+[ext_resource type="Texture2D" uid="uid://b6g7j3n2ec47r" path="res://assets/main_menu/screamtoggle.png" id="4_popqo"]
+[ext_resource type="Texture2D" uid="uid://tjlnw4ps86p4" path="res://assets/main_menu/toggle.png" id="5_s0ccf"]
+
+[node name="optionsmenu" type="Control" unique_id=1982819461]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background" type="Sprite2D" parent="." unique_id=574162683]
+modulate = Color(1, 1, 1, 0.54901963)
+position = Vector2(999.49994, 999.49994)
+scale = Vector2(10.758, 10.758)
+texture = ExtResource("1_a5em0")
+
+[node name="optionstext" type="Sprite2D" parent="." unique_id=1013500040]
+position = Vector2(503.695, 274)
+scale = Vector2(1.308, 1.308)
+texture = ExtResource("2_21q2e")
+
+[node name="screamtext" type="Sprite2D" parent="." unique_id=1696192192]
+position = Vector2(208.665, 339.25)
+texture = ExtResource("3_epn0t")
+
+[node name="Screamtoggle" type="Sprite2D" parent="." unique_id=575192664]
+position = Vector2(458, 308)
+texture = ExtResource("4_popqo")
+
+[node name="Button" type="Button" parent="Screamtoggle" unique_id=190787742]
+modulate = Color(1, 1, 1, 0)
+offset_left = -120.0
+offset_top = -170.0
+offset_bottom = -49.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Toggle" type="Sprite2D" parent="." unique_id=295061434]
+visible = false
+position = Vector2(459, 307)
+texture = ExtResource("5_s0ccf")

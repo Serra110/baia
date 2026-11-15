@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://buvm27nrn0n1o"]
+
+[ext_resource type="Script" uid="uid://d1sqplhasvgiv" path="res://main_menu.gd" id="1_menu"]
+[ext_resource type="Texture2D" uid="uid://bkhpq32cgnxhv" path="res://assets/main_menu/background.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://dydl7tuy6bwgm" path="res://assets/main_menu/new.png" id="3_fj5cn"]
+[ext_resource type="Texture2D" uid="uid://b4evk7322p1bs" path="res://assets/main_menu/optionsmenu.png" id="4_iy58a"]
+[ext_resource type="Texture2D" uid="uid://du6a1h0bhtrms" path="res://assets/main_menu/options.png" id="5_6a6wx"]
+[ext_resource type="Texture2D" uid="uid://boduyc2n3hmfc" path="res://assets/main_menu/quit.png" id="6_iy58a"]
+[ext_resource type="Texture2D" uid="uid://cx8se82dlxmn6" path="res://assets/main_menu/title.png" id="7_iy58a"]
+[ext_resource type="AudioStreamWAV" uid="uid://bqf0qjnvchdmm" path="res://assets/main_menu/the_house_breathes.wav" id="8_amb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ytqx"]
+atlas = ExtResource("2_bg")
+region = Rect2(0, 450, 1000, 550)
+
+[node name="Control" type="Control" unique_id=344050940]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Ambience" type="AudioStreamPlayer" parent="." unique_id=600000001]
+stream = ExtResource("8_amb")
+volume_db = -8.0
+autoplay = true
+
+[node name="RoomBackground" type="TextureRect" parent="." unique_id=497917487]
+modulate = Color(0.70380783, 0.70380783, 0.70380783, 1)
+self_modulate = Color(0.7919991, 0.79199916, 0.7919991, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -528.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_0ytqx")
+expand_mode = 1
+
+[node name="new" type="Sprite2D" parent="." unique_id=890144037]
+position = Vector2(121.567, 250.122)
+scale = Vector2(0.6976083, 0.6976083)
+texture = ExtResource("3_fj5cn")
+
+[node name="newbutton" type="Button" parent="new" unique_id=89567351]
+modulate = Color(1, 1, 1, 0)
+offset_left = -171.3956
+offset_top = -245.29811
+offset_right = 23.556198
+offset_bottom = -153.55608
+
+[node name="gallery" type="Sprite2D" parent="." unique_id=1113590218]
+position = Vector2(82.322, 296.768)
+scale = Vector2(0.56702626, 0.56702626)
+texture = ExtResource("4_iy58a")
+
+[node name="gallerybutton" type="Button" parent="gallery" unique_id=1315110137]
+modulate = Color(1, 1, 1, 0)
+offset_left = -143.4184
+offset_top = -137.1506
+offset_right = 214.58972
+offset_bottom = -66.60715
+
+[node name="options" type="Sprite2D" parent="." unique_id=208266108]
+position = Vector2(81.795, 317.355)
+scale = Vector2(0.555, 0.555)
+texture = ExtResource("5_6a6wx")
+
+[node name="optionsbutton" type="Button" parent="options" unique_id=91703893]
+modulate = Color(1, 1, 1, 0)
+offset_left = -118.549545
+offset_top = -6.045105
+offset_right = 292.2613
+offset_bottom = 73.23419
+
+[node name="quit" type="Sprite2D" parent="." unique_id=796255808]
+position = Vector2(214.66, 509.605)
+scale = Vector2(0.74265, 0.74265)
+texture = ExtResource("6_iy58a")
+
+[node name="quitbutton" type="Button" parent="quit" unique_id=1466837988]
+modulate = Color(1, 1, 1, 0)
+offset_left = -136.88817
+offset_top = -151.62598
+offset_right = 104.140594
+offset_bottom = -70.83423
+
+[node name="title" type="Sprite2D" parent="." unique_id=926149742]
+position = Vector2(781.25, 296.305)
+texture = ExtResource("7_iy58a")
+
+[connection signal="pressed" from="new/newbutton" to="." method="_on_newbutton_pressed"]
+[connection signal="pressed" from="gallery/gallerybutton" to="." method="_on_gallerybutton_pressed"]
+[connection signal="pressed" from="options/optionsbutton" to="." method="_on_optionsbutton_pressed"]
+[connection signal="pressed" from="quit/quitbutton" to="." method="_on_button_pressed"]
