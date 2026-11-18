@@ -36,7 +36,7 @@ The game was developed using **Godot**, in 2D.
 ### Team
 
 - **Martim** — Programming
-- **Diogo / Serra110** — Art (mostly UI)
+- **Serra110** — Art (mostly UI)
 - **David** — Art (mostly character making)
 
 Sound effects used in the game are royalty-free.
